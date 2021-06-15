@@ -107,6 +107,6 @@ document.getElementById("form-user-create").addEventListener("submit", function(
         user.admin
     );
 
-    addLine(user);
+    addLine(objectUser);
 
 });
