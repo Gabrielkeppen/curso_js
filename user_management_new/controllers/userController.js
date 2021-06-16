@@ -6,6 +6,7 @@ class UserController {
         this.tableEl = document.getElementById(tableId);
 
         this.onSubmit();
+        this.getPhoto();
 
     }
 
@@ -15,9 +16,41 @@ class UserController {
 
             event.preventDefault();
 
-            this.addLine(this.getValues());
+            let values = this.getValues();
+
+            this.getPhoto((content)=>{
+
+                values.photo = content;
+                this.addLine(values);
+
+            });
         
         });
+
+    };
+
+    getPhoto(callback){
+
+        let fileReader = new FileReader();
+
+        //usando operador spread
+        let elements = [...this.formEl.elements].filter(item=>{
+
+            if (item.name === 'photo') {
+                return item;
+            };
+
+        });
+
+        let file = elements[0].files[0];
+
+        fileReader.onload = ()=>{
+
+            callback(fileReader.result)
+
+        };
+
+        fileReader.readAsDataURL(file);
 
     };
 
@@ -68,8 +101,6 @@ class UserController {
     }
 
     addLine(dataUser){
-
-        console.log(dataUser)
 
         this.tableEl.innerHTML = `
             <tr>
