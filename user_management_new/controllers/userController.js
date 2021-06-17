@@ -6,7 +6,6 @@ class UserController {
         this.tableEl = document.getElementById(tableId);
 
         this.onSubmit();
-        this.getPhoto();
 
     }
 
@@ -20,14 +19,14 @@ class UserController {
 
             this.getPhoto().then(
 
-                function(content){
+                (content) => {
 
                     values.photo = content;
                     this.addLine(values);
 
                 },
 
-                function(e){
+                (e) => {
 
                     console.error(e);
 
@@ -41,7 +40,7 @@ class UserController {
 
     getPhoto(){
 
-        return new Promise (function(resolve, reject){
+        return new Promise ((resolve, reject) => {
 
             let fileReader = new FileReader();
 
@@ -55,6 +54,8 @@ class UserController {
             });
     
             let file = elements[0].files[0];
+
+            console.log(file)
     
             fileReader.onload = ()=>{
     
